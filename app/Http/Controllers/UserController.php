@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users =  User::getUsers();
+        $users =  \App\User::all();
         return view('admin.list', compact('users'));
     }
 

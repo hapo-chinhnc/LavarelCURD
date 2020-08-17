@@ -14,9 +14,4 @@ class User extends Model
     protected $fillable = [
         'name', 'gender','email', 'phone', 'address', 'img'
     ];
-
-    static public function getUsers()
-    {
-        return \App\User::all();
-    }
 }
