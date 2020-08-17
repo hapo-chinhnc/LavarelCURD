@@ -7,6 +7,7 @@ use DB;
 use App\User;
 use App\Http\Requests\MessageRequest;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -62,12 +63,17 @@ class UserController extends Controller
         $user->email = $request->get('email');
         $user->phone = $request->get('phone');
         $user->address = $request->get('address');
-        $file = $request->file('avatar')->getClientOriginalName();
-        $fileName = pathinfo($file, PATHINFO_FILENAME);
-        $extension = $request->file('avatar')->getClientOriginalExtension();
-        $fileNameToStore = $id . '_' . $fileName . '_' . time() . '.' .$extension;
-        $path = $request -> file('avatar') -> storeAs('public/images', $fileNameToStore);
-        $user->img = $fileNameToStore;
+        $image = User::find($id)->img;
+        if($request->hasFile('avatar')) {
+            Storage::delete('public/images/' .$image);
+            $file = $request->file('avatar')->getClientOriginalName();
+            $fileName = pathinfo($file, PATHINFO_FILENAME);
+            $extension = $request->file('avatar')->getClientOriginalExtension();
+            $fileNameToStore = $id . '_' . $fileName . '_' . time() . '.' .$extension;
+            $path = $request -> file('avatar') -> storeAs('public/images', $fileNameToStore);
+            $user->img = $fileNameToStore;
+        }
+        
         $user->save();
         return redirect()->route('user.edit', $id)->with('success', trans('messages.updated'));
     }

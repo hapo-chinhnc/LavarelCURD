@@ -29,7 +29,7 @@ class MessageRequest extends FormRequest
             'email' => 'required|unique:users',
             'phone' => 'required|numeric|min:9',
             'address' => 'required|min:5|max:255',
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }
