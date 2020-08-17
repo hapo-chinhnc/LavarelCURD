@@ -44,19 +44,19 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         return view('admin.infor', compact('user'));
     }
 
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         return view('admin.edit', compact('user'));
     }
 
     public function update(MessageRequest $request, $id) 
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->name = $request->get('name');
         $user->gender = $request->get('gender');
         $user->email = $request->get('email');
@@ -68,7 +68,7 @@ class UserController extends Controller
 
     public function destroy($id) 
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->delete();
         return redirect()->route('user.index')->with('success', trans('messages.deleted'));
     }
