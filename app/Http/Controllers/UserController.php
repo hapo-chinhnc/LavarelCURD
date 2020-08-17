@@ -23,17 +23,12 @@ class UserController extends Controller
 
     public function store(MessageRequest $request)
     {
-        if($request->hasFile('avatar')) 
-        {
+        if($request->hasFile('avatar')) {
             $file = $request->file('avatar')->getClientOriginalName();
             $fileName = pathinfo($file, PATHINFO_FILENAME);
             $extension = $request->file('avatar')->getClientOriginalExtension();
             $fileNameToStore = $fileName . '_' . time() . '.' .$extension;
             $path = $request -> file('avatar') -> storeAs('public/images', $fileNameToStore);
-        }
-        else 
-        {
-            $fileNameToStore = '';
         }
 
         $user = new User;

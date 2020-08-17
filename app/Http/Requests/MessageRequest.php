@@ -24,12 +24,12 @@ class MessageRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:5|max:255',
+            'name' => 'required|max:255',
             'gender' => 'required|boolean',
             'email' => 'required|unique:users',
             'phone' => 'required|numeric|min:9',
             'address' => 'required|min:5|max:255',
-            'avatar' => 'image|mimes:jpeg,png,jpg,gif',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

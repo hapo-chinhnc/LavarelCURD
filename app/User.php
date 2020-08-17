@@ -2,13 +2,13 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+class User extends Model
 {
-
+    use softDeletes;
     protected $table = 'users';
 
     protected $fillable = [
@@ -17,6 +17,6 @@ class User extends Authenticatable
 
     static public function getUsers()
     {
-        return self::select('*')->get();
+        return \App\User::all();
     }
 }
